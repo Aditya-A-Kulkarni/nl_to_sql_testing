@@ -4,3 +4,5 @@ langchain-community
 langchain-google-genai
 streamlit
 sqlalchemy-bigquery
+google-cloud-aiplatform
+google-cloud-logging
