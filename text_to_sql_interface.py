@@ -22,9 +22,9 @@ google_chat = ChatGoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
-credential_path = r"gs://nl_to_sql_credentials/credentials_json.json"
+#credential_path = r"gs://nl_to_sql_credentials/credentials_json.json"
 
-url = f'bigquery://{project}/{dataset}?credentials_path={credential_path}'
+url = f'bigquery://{project}/{dataset}'#?credentials_path={credential_path}'
 db = SQLDatabase.from_uri(url)
 
 def text_to_sql (db, question):
