@@ -13,6 +13,8 @@ from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate, MessagesPlaceholder
 import streamlit as st
+from google.cloud import storage
+import json
 
 api_key = 'AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU'
 google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
@@ -20,7 +22,7 @@ google_chat = ChatGoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
-credential_path = r"C:\Users\Analytics Liv\Desktop\Projects\NL to SQL\NL to Analytics\Notebooks\credentials_json.json"
+credential_path = r"gs://nl_to_sql_credentials/credentials_json.json"
 
 url = f'bigquery://{project}/{dataset}?credentials_path={credential_path}'
 db = SQLDatabase.from_uri(url)
