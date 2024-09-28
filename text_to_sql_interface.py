@@ -16,7 +16,8 @@ import streamlit as st
 from google.cloud import storage
 import json
 
-api_key = 'AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU'
+#api_key = 'AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU'
+api_key = os.getenv('API_KEY')
 google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
 google_chat = ChatGoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
 
