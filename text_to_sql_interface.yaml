@@ -1,2 +1,5 @@
 runtime: custom
 env: flex
+
+env_variables: 
+  API_KEY: "AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU"
