@@ -15,6 +15,11 @@ from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate, Messag
 import streamlit as st
 from google.cloud import storage
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
@@ -24,15 +29,17 @@ db = SQLDatabase.from_uri(url)
 
 def text_to_sql (db, question):
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket('gemini-api-key')
-    blob = bucket.blob('api_key')
+    # storage_client = storage.Client()
+    # bucket = storage_client.bucket('gemini-api-key')
+    # blob = bucket.blob('api_key')
 
-    API_KEY = ''
+    # API_KEY = ''
 
-    with blob.open("r") as f:
+    # with blob.open("r") as f:
     
-        API_KEY = f.read()
+    #     API_KEY = f.read()
+
+    
 
     google_llm = GoogleGenerativeAI(model = "gemini-1.0-pro", google_api_key = API_KEY, temperature = 0.1)
 
