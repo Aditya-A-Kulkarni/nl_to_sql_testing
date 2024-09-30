@@ -17,6 +17,7 @@ from google.cloud import storage
 import json
 from dotenv import load_dotenv
 from langchain_google_vertexai import VertexAI
+from google.cloud import bigquery 
 
 
 # load_dotenv()
@@ -56,7 +57,7 @@ Below are a few examples questions along with their corresponding SQL queries: '
 
 Question: {input} 
 SQL Query: '''
-
+    
     few_shot_examples = [
 
     {
@@ -85,6 +86,12 @@ SQL Query: '''
     sql = sql_chain.invoke({'input' : question}).replace('```sql', '').replace('```', '')
     sql = sql.split()
     sql = ' '.join(sql)
+    sql = sql.replace("'", '"')
+
+    client = bigquery.Client()
+    table = client.get_table("dx-api-project.madkpi_text_to_sql.text_to_sql_testing")
+    rows = [{'Input' : f'{question}', 'Output' : f'{sql}'}]
+    client.insert_rows_json(table, rows)
 
     return sql
 
