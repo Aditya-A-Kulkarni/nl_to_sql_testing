@@ -16,21 +16,23 @@ import streamlit as st
 from google.cloud import storage
 import json
 
-storage_client = storage.Client()
-bucket = storage_client.bucket('gemini-api-key')
-blob = bucket.blob('api_key')
-
-with blob.open("r") as f:
-    
-    API_KEY = f.read()
-
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
 
 url = f'bigquery://{project}/{dataset}'
 db = SQLDatabase.from_uri(url)
 
-def text_to_sql (db, question, API_KEY):
+def text_to_sql (db, question):
+
+    storage_client = storage.Client()
+    bucket = storage_client.bucket('gemini-api-key')
+    blob = bucket.blob('api_key')
+
+    API_KEY = ''
+
+    with blob.open("r") as f:
+    
+        API_KEY = f.read()
 
     google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = API_KEY, temperature = 0.1)
 
@@ -86,6 +88,6 @@ submit = st.button("Ask a question")
 
 if submit:
 
-    response = text_to_sql (db, question, API_KEY)
+    response = text_to_sql (db, question)
     print(response)
 
