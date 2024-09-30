@@ -19,9 +19,9 @@ from dotenv import load_dotenv
 from langchain_google_vertexai import VertexAI
 
 
-load_dotenv()
+# load_dotenv()
 
-credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
