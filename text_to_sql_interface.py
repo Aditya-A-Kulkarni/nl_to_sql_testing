@@ -16,10 +16,12 @@ import streamlit as st
 from google.cloud import storage
 import json
 from dotenv import load_dotenv
+from langchain_google_vertexai import VertexAI
+
 
 load_dotenv()
 
-API_KEY = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
@@ -41,7 +43,7 @@ def text_to_sql (db, question):
 
     
 
-    google_llm = GoogleGenerativeAI(model = "gemini-1.0-pro", google_api_key = API_KEY, temperature = 0.1)
+    google_llm = VertexAI(model = "gemini-1.0-pro", temperature = 0.1)
 
     prefix = '''You are a Bigquery SQL expert. Given an input question, first create a syntactically correct Bigquery SQL query to run, then look at the results of the query and return the answer to the input question.
 You must query only the columns that are needed to answer the question. Pay attention to use only the column names you can see in the tables below. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
