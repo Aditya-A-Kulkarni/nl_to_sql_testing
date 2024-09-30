@@ -34,7 +34,7 @@ def text_to_sql (db, question):
     
         API_KEY = f.read()
 
-    google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = API_KEY, temperature = 0.1)
+    google_llm = GoogleGenerativeAI(model = "gemini-1.0-pro", google_api_key = API_KEY, temperature = 0.1)
 
     prefix = '''You are a Bigquery SQL expert. Given an input question, first create a syntactically correct Bigquery SQL query to run, then look at the results of the query and return the answer to the input question.
 You must query only the columns that are needed to answer the question. Pay attention to use only the column names you can see in the tables below. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
