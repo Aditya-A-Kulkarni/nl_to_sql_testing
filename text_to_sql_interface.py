@@ -16,18 +16,23 @@ import streamlit as st
 from google.cloud import storage
 import json
 
-api_key = API_KEY
+storage_client = storage.Client()
+bucket = storage_client.bucket('gemini-api-key')
+blob = bucket.blob('api_key')
+
+with blob.open("r") as f:
+    
+    API_KEY = f.read()
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
-#credential_path = r"gs://nl_to_sql_credentials/credentials_json.json"
 
-url = f'bigquery://{project}/{dataset}'#?credentials_path={credential_path}'
+url = f'bigquery://{project}/{dataset}'
 db = SQLDatabase.from_uri(url)
 
-def text_to_sql (db, question, api_key):
+def text_to_sql (db, question, API_KEY):
 
-    google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
+    google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = API_KEY, temperature = 0.1)
 
     prefix = '''You are a Bigquery SQL expert. Given an input question, first create a syntactically correct Bigquery SQL query to run, then look at the results of the query and return the answer to the input question.
 You must query only the columns that are needed to answer the question. Pay attention to use only the column names you can see in the tables below. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
@@ -81,6 +86,6 @@ submit = st.button("Ask a question")
 
 if submit:
 
-    response = text_to_sql (db, question, api_key)
+    response = text_to_sql (db, question, API_KEY)
     print(response)
 
