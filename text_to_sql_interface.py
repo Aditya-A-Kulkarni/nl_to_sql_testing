@@ -16,10 +16,7 @@ import streamlit as st
 from google.cloud import storage
 import json
 
-#api_key = 'AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU'
-api_key = os.getenv('API_KEY')
-google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
-google_chat = ChatGoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
+api_key = API_KEY
 
 project = 'dx-api-project'
 dataset = 'madkpi_text_to_sql'
@@ -28,9 +25,8 @@ dataset = 'madkpi_text_to_sql'
 url = f'bigquery://{project}/{dataset}'#?credentials_path={credential_path}'
 db = SQLDatabase.from_uri(url)
 
-def text_to_sql (db, question):
+def text_to_sql (db, question, api_key):
 
-    api_key = 'AIzaSyCogpzeS47BqAVEB_kzotgR6wTKDgsyfHU'
     google_llm = GoogleGenerativeAI(model = "gemini-1.5-pro-latest", google_api_key = api_key, temperature = 0.1)
 
     prefix = '''You are a Bigquery SQL expert. Given an input question, first create a syntactically correct Bigquery SQL query to run, then look at the results of the query and return the answer to the input question.
@@ -85,6 +81,6 @@ submit = st.button("Ask a question")
 
 if submit:
 
-    response = text_to_sql (db, question)
+    response = text_to_sql (db, question, api_key)
     print(response)
 
