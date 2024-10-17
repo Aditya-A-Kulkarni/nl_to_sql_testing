@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from google.cloud import bigquery
 import json
-from google.oauth2 import service_account
 import sys
 
 def text_to_analytics (question, table, google_llm, db):
