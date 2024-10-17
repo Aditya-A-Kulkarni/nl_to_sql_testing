@@ -13,6 +13,5 @@ python-dotenv
 google-auth
 matplotlib
 pandas
-google-oauth2
 json
 sys
