@@ -12,6 +12,5 @@ google-cloud-bigquery
 python-dotenv
 google-auth
 matplotlib
-pandas
 json
 sys
